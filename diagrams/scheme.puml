@@ -1,0 +1,66 @@
+@startuml
+!define table(x) class x << (T,#FFAAAA) >>
+
+table(User) {
+  +uuid id PK
+  string username
+  string email
+  boolean prefers_football
+  boolean prefers_tennis
+  datetime created_at
+}
+
+table(Match) {
+  +bigint id PK
+  string sport
+  string match_type
+  date match_date
+  string competition
+  int home_team_id
+  int away_team_id
+  string score
+}
+
+table(Team) {
+  +int id PK
+  string name
+  string logo_url
+  string sport
+}
+table(Review) {
+  +bigint id PK
+  uuid user_id FK
+  bigint match_id FK
+  decimal rating "0.5–5 stars"
+  text comment
+  datetime created_at
+}
+
+table(Photo) {
+  +bigint id PK
+  bigint review_id FK
+  string url
+}
+
+table(Follow) {
+  uuid follower_id FK
+  uuid followee_id FK
+  datetime since
+}
+
+table(Tag) {
+  +int id PK
+  string name
+}
+
+table(ReviewTag) {
+  +int review_id FK
+  +int tag_id FK
+}
+
+
+User ||--o{ Review : writes
+Match ||--o{ Review : "is reviewed in"
+Review ||--o{ Photo : has
+User ||--o{ Follow : follows
+@enduml

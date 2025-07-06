@@ -1,0 +1,29 @@
+@startuml
+!include C4_Container.puml
+
+Person(user, "Fan", "Logs & rates matches")
+
+System_Boundary(scoreboxd, "Scoreboxd Platform") {
+  Container(web,    "Scoreboxd Web App", "Angular + TypeScript", "Web interface to rate and review football/tennis matches")
+  Container(mobile, "Scoreboxd Mobile App", "React Native + Expo", "Mobile version with same API (optional)")
+  Container(api,    "Scoreboxd API", "Java 21 + Spring Boot", "Handles business logic, user reviews, and auth")
+  Container(db,     "PostgreSQL", "SQL Database", "Stores users, matches, reviews, follows, photos")
+  Container(worker, "Data Sync Worker", "Spring Batch / Scheduler", "Fetches matches from external APIs daily")
+}
+
+System_Ext(apiFootball, "Football API", "Provides fixtures, results, teams")
+System_Ext(apiTennis,   "Tennis API", "Provides tournament and match data")
+System_Ext(auth0,       "Auth Provider", "Handles secure login/signup (JWT)")
+System_Ext(mailSvc,     "Email Service", "Sends verification & reset emails")
+
+Rel(user, web, "Uses")
+Rel(user, mobile, "Uses")
+Rel(web, api, "Calls REST API via HTTPS")
+Rel(mobile, api, "Calls REST API via HTTPS")
+Rel(api, db, "Reads/writes data")
+Rel(worker, db, "Upserts match data")
+Rel(worker, apiFootball, "GET match data")
+Rel(worker, apiTennis, "GET match data")
+Rel(api, auth0, "Validates user tokens")
+Rel(api, mailSvc, "Sends e-mails")
+@enduml

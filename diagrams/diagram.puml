@@ -1,0 +1,20 @@
+@startuml
+!include C4_Context.puml
+
+Person(user, "Fan", "Logs & rates matches")
+
+System_Boundary(matchlog, "MatchLog Platform") {
+  System(app, "MatchLog Web & Mobile", "Social diary for matches")
+}
+
+System_Ext(apiFootball, "Football API", "Daily fixtures & results")
+System_Ext(apiTennis,   "Tennis API",   "Scores & players")
+System_Ext(auth0,       "Auth Provider", "Auth0 / Keycloak")
+System_Ext(mailSvc,     "Email Service", "Sends emails")
+
+Rel(user, app, "Uses")
+Rel(app, apiFootball, "Fetches data")
+Rel(app, apiTennis, "Fetches data")
+Rel(app, auth0, "Auth")
+Rel(app, mailSvc, "Sends emails")
+@enduml
