@@ -10,8 +10,8 @@ public class WebClientConfig {
 
     @Bean
     public WebClient footballWebClient(
-            @Value("${football.api.host}") String host,
-            @Value("${football.api.key}") String apiKey) {
+            @Value("${FOOTBALL_API_HOST}") String host,
+            @Value("${FOOTBALL_API_KEY}") String apiKey) {
 
         return WebClient.builder()
                 .baseUrl("https://" + host)
