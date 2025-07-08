@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.Set;
 
 @Entity
@@ -32,7 +32,7 @@ public class Review {
     @Column(columnDefinition = "text")
     private String comment;
 
-    private LocalDateTime createdAt = LocalDateTime.now();
+    private OffsetDateTime createdAt = OffsetDateTime.now();
 
     @OneToMany(mappedBy = "review", cascade = CascadeType.ALL)
     private Set<Photo> photos;

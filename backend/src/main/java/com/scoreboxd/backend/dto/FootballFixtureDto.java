@@ -1,15 +1,16 @@
 // src/main/java/com/scoreboxd/backend/external/dto/FootballFixtureDto.java
-package com.scoreboxd.dto;
+package com.scoreboxd.backend.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.time.LocalDateTime;
+
+import java.time.OffsetDateTime;
 
 public record FootballFixtureDto(
         @JsonProperty("fixture") Fixture fixture,
         @JsonProperty("teams")   Teams   teams,
         @JsonProperty("score")   Score   score) {
 
-    public record Fixture(long id, LocalDateTime date) {}
+    public record Fixture(long id, OffsetDateTime date) {}
     public record Teams(Team home, Team away) {
         public record Team(long id, String name, String logo) {}
     }

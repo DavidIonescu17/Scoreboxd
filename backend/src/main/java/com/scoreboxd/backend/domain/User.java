@@ -3,7 +3,7 @@ package com.scoreboxd.backend.domain;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.Set;
 import java.util.UUID;
 
@@ -22,7 +22,7 @@ public class User {
     private Boolean prefersFootball = false;
     private Boolean prefersTennis  = false;
 
-    private LocalDateTime createdAt = LocalDateTime.now();
+    private OffsetDateTime createdAt = OffsetDateTime.now();
 
     /* ---- relationships ---- */
 

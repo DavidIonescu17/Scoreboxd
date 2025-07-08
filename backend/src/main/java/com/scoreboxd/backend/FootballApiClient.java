@@ -1,12 +1,11 @@
 package com.scoreboxd.backend;
 
-import com.scoreboxd.backend.external.dto.FootballFixtureDto;
+import com.scoreboxd.backend.dto.FootballFixtureDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
-import reactor.core.publisher.Mono;
 
-import java.time.LocalDate;
+import java.time.OffsetDateTime;
 import java.util.List;
 
 @Component
@@ -15,8 +14,8 @@ public class FootballApiClient {
 
     private final WebClient footballWebClient;
 
-    public List<FootballFixtureDto> fetchFixtures(LocalDate date) {
-        return footballWebClient
+    public List<FootballFixtureDto> fetchFixtures(OffsetDateTime date) {
+        ApiResponse apiResponse = footballWebClient
                 .get()
                 .uri(uriBuilder -> uriBuilder
                      .path("/fixtures")
@@ -24,8 +23,9 @@ public class FootballApiClient {
                      .build())
                 .retrieve()
                 .bodyToMono(ApiResponse.class)
-                .block()                                        // blocking for simplicity
-                .response();
+                .block(); // blocking for simplicity
+
+        return apiResponse != null ? apiResponse.response() : List.of();
     }
 
     // helper to match API’s envelope { response: [...] }

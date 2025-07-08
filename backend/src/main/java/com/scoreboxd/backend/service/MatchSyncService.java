@@ -2,15 +2,15 @@
 package com.scoreboxd.backend.service;
 
 import com.scoreboxd.backend.domain.*;
-import com.scoreboxd.backend.external.FootballApiClient;
-import com.scoreboxd.backend.external.dto.FootballFixtureDto;
+import com.scoreboxd.backend.FootballApiClient;
+import com.scoreboxd.backend.dto.FootballFixtureDto;
 import com.scoreboxd.backend.repository.MatchRepository;
 import com.scoreboxd.backend.repository.TeamRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
+import java.time.OffsetDateTime;
 import java.util.Optional;
 
 @Service
@@ -24,7 +24,7 @@ public class MatchSyncService {
     /** Call this manually first; later annotate with @Scheduled */
     @Transactional
     public void importYesterday() {
-        LocalDate target = LocalDate.now().minusDays(1);
+        OffsetDateTime target = OffsetDateTime.now().minusDays(1);
 
         client.fetchFixtures(target).forEach(fix -> {
             Team home = upsertTeam(fix.teams().home());
@@ -45,7 +45,7 @@ public class MatchSyncService {
 
         m.setId(dto.fixture().id());
         m.setSport(Sport.FOOTBALL);
-        m.setMatchDate(dto.fixture().date().toLocalDate());
+        m.setMatchDate(dto.fixture().date());
         m.setCompetition("API-Football");          // refine later with dto.league()
         m.setScore(formatScore(dto));
         m.setHomeTeam(home);

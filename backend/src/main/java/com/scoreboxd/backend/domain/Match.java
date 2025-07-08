@@ -3,7 +3,8 @@ package com.scoreboxd.backend.domain;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDate;
+import java.time.OffsetDateTime;
+import java.time.OffsetTime;
 import java.util.Set;
 
 @Entity
@@ -18,7 +19,7 @@ public class Match {
     private Sport sport;
 
     private String matchType;   // final, group-stage, friendly …
-    private LocalDate matchDate;
+    private OffsetDateTime matchDate;
     private String competition;
     private String score;       // nullable until game finished
 
