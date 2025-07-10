@@ -19,7 +19,7 @@ public class HomeController {
 
     @PostMapping("/admin/sync-football")
     public String syncNow() {
-        syncService.importYesterday();
+        syncService.importToday();
         return "OK";
     }
 
