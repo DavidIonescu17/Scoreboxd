@@ -1,4 +1,4 @@
-package com.scoreboxd.backend;
+package com.scoreboxd.backend.client;
 
 import com.scoreboxd.backend.dto.FootballFixtureDto;
 import lombok.RequiredArgsConstructor;

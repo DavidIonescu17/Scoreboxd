@@ -1,8 +1,8 @@
 // src/main/java/com/scoreboxd/backend/service/MatchSyncService.java
 package com.scoreboxd.backend.service;
 
+import com.scoreboxd.backend.client.FootballApiClient;
 import com.scoreboxd.backend.domain.*;
-import com.scoreboxd.backend.FootballApiClient;
 import com.scoreboxd.backend.dto.FootballFixtureDto;
 import com.scoreboxd.backend.repository.MatchRepository;
 import com.scoreboxd.backend.repository.TeamRepository;
